@@ -1,0 +1,15 @@
+name: Event Reminder Cron
+
+on:
+  schedule:
+    - cron: '*/10 * * * *' # Runs every 10 mins
+  workflow_dispatch:
+
+jobs:
+  trigger-cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call Notification Endpoint
+        run: |
+          # 👇 CHANGE THIS LINE to match your specific path
+          curl -X GET "${{ secrets.VERCEL_APP_URL }}/api/notifications/send?key=${{ secrets.CRON_SECRET }}"
